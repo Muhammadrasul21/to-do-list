@@ -12,8 +12,8 @@ function createList(data) {
     data.forEach((item, index) => {
         let li = document.createElement("li")
         li.innerHTML = `
-        <span>${item.title}</span>
-        <button data-id="${index}">Delete</button>`
+        <span class = "text">${item.title}</span>
+        <button class="del" data-id="${index}">Delete</button>`
         collection.appendChild(li)
     });
 
@@ -36,12 +36,15 @@ createList(DATA)
 
 form.addEventListener("submit", e => {
     e.preventDefault()
-    const value = inp.value
+
+    const value = inp.value.trim()
+
+    if (value === "") return
     let newTODO = {
         id: new Date().getTime(),
         title: value
     }
-    DATA.push(newTODO);
+    DATA.push(newTODO)
     localStorage.setItem("data", JSON.stringify(DATA))
     inp.value = ""
     createList(DATA)
