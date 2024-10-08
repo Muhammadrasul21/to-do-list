@@ -21,12 +21,12 @@ function createList(data) {
     deleteButtons.forEach(button => {
         button.addEventListener("click", function () {
             const index = this.getAttribute("data-id")
-            deleteTodoItem(index)
+            deleteItem(index)
         })
     })
 }
 
-function deleteTodoItem(index) {
+function deleteItem(index) {
     DATA.splice(index, 1)
     localStorage.setItem("data", JSON.stringify(DATA))
     createList(DATA)
