@@ -8,13 +8,28 @@ function createList(data) {
     while (collection.firstChild) {
         collection.firstChild.remove()
     }
-    data.forEach(item => {
+
+    data.forEach((item, index) => {
         let li = document.createElement("li")
         li.innerHTML = `
         <span>${item.title}</span>
-         <button>Delete</button>`
+        <button data-id="${index}">Delete</button>`
         collection.appendChild(li)
     });
+
+    const deleteButtons = document.querySelectorAll(".collection button")
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const index = this.getAttribute("data-id")
+            deleteTodoItem(index)
+        })
+    })
+}
+
+function deleteTodoItem(index) {
+    DATA.splice(index, 1)
+    localStorage.setItem("data", JSON.stringify(DATA))
+    createList(DATA)
 }
 
 createList(DATA)
